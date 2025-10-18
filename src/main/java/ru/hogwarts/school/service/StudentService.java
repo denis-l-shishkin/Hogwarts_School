@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
-    private Map<Long, Student> students = new HashMap<>();
-    private Long studentId = 0L;
+    private final Map<Long, Student> students = new HashMap<>();
+    private static Long studentId = 0L;
 
     public Long createStudent(Student student) {
         student.setId(++studentId);

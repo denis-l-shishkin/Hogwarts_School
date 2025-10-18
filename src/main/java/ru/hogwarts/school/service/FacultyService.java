@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class FacultyService {
-    private Map<Long, Faculty> faculties = new HashMap<>();
-    private Long facultyId = 0L;
+    private final Map<Long, Faculty> faculties = new HashMap<>();
+    private static Long facultyId = 0L;
 
     public Faculty createFaculty(Faculty faculty) {
         faculty.setId(++facultyId);
@@ -30,6 +30,7 @@ public class FacultyService {
         return faculty;
     }
     public void deleteFaculty(Long id) {
+
         faculties.remove(id);
     }
     public List<Faculty> getFacultiesByColor(String color) {

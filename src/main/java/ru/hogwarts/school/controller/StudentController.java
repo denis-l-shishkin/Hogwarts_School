@@ -27,11 +27,11 @@ public class StudentController {
     public Student updateStudent(@RequestBody Student student) {
         return studentService.updateStudent(student);
     }
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public Student getStudentById(@PathVariable Long id) {
         return studentService.getStudent(id);
     }
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void deleteStudentById(@PathVariable Long id) {
         studentService.deleteStudent(id);
     }

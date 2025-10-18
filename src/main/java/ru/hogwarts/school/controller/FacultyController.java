@@ -27,11 +27,11 @@ public class FacultyController {
     public Faculty updateFaculty(@RequestBody Faculty faculty) {
         return facultyService.updateFaculty(faculty);
     }
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public Faculty getFacultyById(@PathVariable Long id) {
         return facultyService.getFaculty(id);
     }
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void deleteFacultyById(@PathVariable Long id) {
         facultyService.deleteFaculty(id);
     }
