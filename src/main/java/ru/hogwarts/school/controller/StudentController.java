@@ -9,7 +9,7 @@ import java.util.List;
 @RestController
 @RequestMapping("student")
 public class StudentController {
-    private StudentService studentService;
+    private final StudentService studentService;
     
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
@@ -35,7 +35,7 @@ public class StudentController {
     public void deleteStudentById(@PathVariable Long id) {
         studentService.deleteStudent(id);
     }
-    @GetMapping("/filter")
+    @GetMapping("/")
     public List<Student> filterStudentsByAge(@RequestParam int age) {
         return studentService.findStudentByAge(age);
     }

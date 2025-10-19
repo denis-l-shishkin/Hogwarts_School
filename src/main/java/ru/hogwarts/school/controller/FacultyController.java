@@ -9,7 +9,7 @@ import java.util.List;
 @RestController
 @RequestMapping("faculty")
 public class FacultyController {
-    private FacultyService facultyService;
+    private final FacultyService facultyService;
 
     public FacultyController(FacultyService facultyService) {
         this.facultyService = facultyService;
@@ -35,7 +35,7 @@ public class FacultyController {
     public void deleteFacultyById(@PathVariable Long id) {
         facultyService.deleteFaculty(id);
     }
-    @GetMapping ("/filter")
+    @GetMapping("/")
     public List<Faculty> filterFacultyByColor(@RequestParam String color) {
         return facultyService.getFacultiesByColor(color);
     }
