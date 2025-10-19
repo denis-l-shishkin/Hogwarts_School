@@ -10,7 +10,7 @@ import java.util.List;
 @RequestMapping("student")
 public class StudentController {
     private final StudentService studentService;
-    
+
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
@@ -19,24 +19,27 @@ public class StudentController {
     public Student createStudent(@RequestBody Student student) {
         return studentService.createStudent(student);
     }
+
     @GetMapping
-    public List<Student> getAllStudent() {
+    public List<Student> getStudents(@RequestParam(required = false) Integer age) {
+        if (age != null) {
+            return studentService.findStudentByAge(age);
+        }
         return studentService.getAllStudents();
     }
+
     @PutMapping
     public Student updateStudent(@RequestBody Student student) {
         return studentService.updateStudent(student);
     }
+
     @GetMapping("/{id}")
     public Student getStudentById(@PathVariable Long id) {
         return studentService.getStudent(id);
     }
+
     @DeleteMapping("/{id}")
     public void deleteStudentById(@PathVariable Long id) {
         studentService.deleteStudent(id);
-    }
-    @GetMapping("/")
-    public List<Student> filterStudentsByAge(@RequestParam int age) {
-        return studentService.findStudentByAge(age);
     }
 }
