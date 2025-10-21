@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.exception.FacultyNotFoundException;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
+import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,9 +15,11 @@ import java.util.List;
 public class FacultyService {
 
     private final FacultyRepository facultyRepository;
+    private final StudentRepository studentRepository;
 
-    public FacultyService(FacultyRepository facultyRepository) {
+    public FacultyService(FacultyRepository facultyRepository, StudentRepository studentRepository) {
         this.facultyRepository = facultyRepository;
+        this.studentRepository = studentRepository;
     }
     public Faculty createFaculty(Faculty faculty) {
         faculty.setId(null);
@@ -38,6 +42,16 @@ public class FacultyService {
         facultyRepository.deleteById(id);
     }
     public List<Faculty> getFacultiesByColor(String color) {
-        return facultyRepository.findAllByName(color);
+        return facultyRepository.findAllByColorIgnoreCase(color);
+    }
+
+    public List<Faculty> getFacultiesByName(String name) {
+        return facultyRepository.findAllByNameIgnoreCase(name);
+    }
+
+    public List<Student> getStudentsByFacultyName(String name) {
+        Faculty faculty = facultyRepository.findByNameIgnoreCase(name)
+                .orElseThrow(() -> new FacultyNotFoundException(name));
+        return new ArrayList<>(studentRepository.findAllByFaculty_Id(faculty.getId()));
     }
 }
