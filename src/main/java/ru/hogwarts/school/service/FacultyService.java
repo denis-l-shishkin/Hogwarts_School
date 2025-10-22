@@ -51,7 +51,7 @@ public class FacultyService {
 
     public List<Student> getStudentsByFacultyName(String name) {
         Faculty faculty = facultyRepository.findByNameIgnoreCase(name)
-                .orElseThrow(() -> new FacultyNotFoundException(name));
+                .orElseThrow(() -> new FacultyNotFoundException("Факультет не найден"));
         return new ArrayList<>(studentRepository.findAllByFaculty_Id(faculty.getId()));
     }
 }
